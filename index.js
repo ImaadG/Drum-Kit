@@ -11,47 +11,68 @@ for (var i=0; i<numberOfDrumButtons; i++) {
     document.querySelectorAll(".drum")[i].addEventListener("click", function () {
         //alert("I got clicked!");
 
-        var buttonInnerHTML = this.innerHTML; //stores the html element that is clicked
-        makeSound(buttonInnerHTML)
+        var buttonInnerHTML = this.innerHTML; //key that triggered the button
+        makeSound(buttonInnerHTML);
+
+        buttonAnimation(buttonInnerHTML);
     });
 }
 
 //Detecting Keyboard Press
 
 document.addEventListener("keydown", function(event){ //play a sound assigned to letter of the drum if key is pressed
-    makeSound(event.key);
+    makeSound(event.key); //key that triggered the button
+
+    buttonAnimation(event.key);
 });
 
 function makeSound(key) {
     switch(key){
+
         case "w":
             var audio = new Audio("sounds/crash.mp3");
             audio.play();
             break
+
         case 'a':
             var audio = new Audio("sounds/kick-bass.mp3");
             audio.play();
             break;
+
         case 's':
             var audio = new Audio("sounds/snare.mp3");
             audio.play();
             break;
+
         case 'd':
             var audio = new Audio("sounds/tom-1.mp3");
             audio.play();
             break;
+
         case 'j':
             var audio = new Audio("sounds/tom-2.mp3");
             audio.play();
             break;
+
         case 'k':
             var audio = new Audio("sounds/tom-3.mp3");
             audio.play();
             break;
+
         case 'l':
             var audio = new Audio("sounds/tom-4.mp3");
             audio.play();
             break;
-        default:
+
+        default: console.log(buttonInnerHTML);
     }
+}
+
+function buttonAnimation(currentKey) {
+    var activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add("pressed");
+
+    setTimeout(function() {
+        activeButton.classList.remove("pressed");
+    }, 100);
 }
